@@ -23,6 +23,8 @@ module LogStash
         ssl_options = { ssl: true, ca_file: options[:ca_file] } if options[:ca_file]
         ssl_options ||= {}
 
+        transport_options[:ssl] = { ca_file: options[:ca_file] } if options[:ca_file]
+
         logger.info("New OpenSearch filter client", :hosts => hosts)
         @client = ::OpenSearch::Client.new(hosts: hosts, transport_options: transport_options, :ssl => ssl_options)
       end
